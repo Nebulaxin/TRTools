@@ -1,0 +1,1 @@
+﻿using UnityEngine;public class SceneManage:MonoBehaviour{public void Load(int id)=>UnityEngine.SceneManagement.SceneManager.LoadScene(id);}
