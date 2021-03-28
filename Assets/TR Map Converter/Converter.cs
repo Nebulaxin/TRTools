@@ -170,18 +170,18 @@ public class Converter : MonoBehaviour
 						sa[0] == "28")
 
 					{
-						ps.Add("^");
+						ps.Add("¶");
 						while (sa[cn] != "Z")
 						{
 							ps.Add(sa[cn]);//добавляем параметры
 							cn++;
 						}
-						ps.Add("^");
+						ps.Add("¶");
 					}
 
 					if (sa[0] == "17" | sa[0] == "29")
 					{
-						ps.Add("^");
+						ps.Add("¶");
 						string sss = "";
 						while (sa[cn] != "Z")
 						{
@@ -189,7 +189,7 @@ public class Converter : MonoBehaviour
 							cn++;
 						}
 						ps.Add(sss);
-						ps.Add("^");
+						ps.Add("¶");
 					}
 
 					if (sa[0] == "20" |
