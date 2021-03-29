@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Gradient/Gradient.unity
     guid: d3bd9d7194bcdd545ac46e069e84977a
+  - enabled: 1
+    path: Assets/TR Skin Converter/TR Skin Converter.unity
+    guid: 60cda9fdd13029541b5543b5cec78521
   m_configObjects: {}

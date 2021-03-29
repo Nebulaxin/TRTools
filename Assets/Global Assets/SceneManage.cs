@@ -1,1 +1,6 @@
-﻿using UnityEngine;public class SceneManage:MonoBehaviour{public void Load(int id)=>UnityEngine.SceneManagement.SceneManager.LoadScene(id);}
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+public class SceneManage : MonoBehaviour
+{
+	public void Load(int id) => SceneManager.LoadScene(id);
+}

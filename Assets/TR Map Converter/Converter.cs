@@ -7,9 +7,9 @@ using System.IO;
 
 public class Converter : MonoBehaviour
 {
-	public GameObject bar;										//ненужные вещи
-	public RectTransform scroll;								//это все строки
-	public List<GameObject> barList = new List<GameObject>();	//с картой и кнопкой добавления
+	public GameObject bar;                                      //ненужные вещи
+	public RectTransform scroll;                                //это все строки
+	public List<GameObject> barList = new List<GameObject>();   //с картой и кнопкой добавления
 
 	public string path;//путь к ккарте
 
@@ -22,11 +22,11 @@ public class Converter : MonoBehaviour
 
 
 	public GameObject ConvertWindow;//окошко с сообением об удачной конвертации
-	
+
 	private void Start()
 	{
-		GetMaps();	//получаем карты
-		Init();		//инициализируем список
+		GetMaps();  //получаем карты
+		Init();     //инициализируем список
 	}
 
 
@@ -39,17 +39,17 @@ public class Converter : MonoBehaviour
 			{
 				foreach (Transform go in scroll)
 				{
-					barList.Remove(go.gameObject);	//убираем предыдущий
-					Destroy(go.gameObject);			//список
+					barList.Remove(go.gameObject);  //убираем предыдущий
+					Destroy(go.gameObject);         //список
 				}
 				foreach (string s in maps)
 				{
-					var g = Instantiate(bar.gameObject);	//создаём строку
-					g.transform.SetParent(scroll, false);	//и присваиваем ей родителя-scrollview
+					var g = Instantiate(bar.gameObject);    //создаём строку
+					g.transform.SetParent(scroll, false);   //и присваиваем ей родителя-scrollview
 
-					string ss = Path.GetFileName(s);				//
-					g.GetComponentInChildren<Text>().text = ss;		//
-					Button b = g.GetComponentInChildren<Button>();	//
+					string ss = Path.GetFileName(s);                //
+					g.GetComponentInChildren<Text>().text = ss;     //
+					Button b = g.GetComponentInChildren<Button>();  //
 					b.onClick.AddListener
 						(
 						() =>
@@ -91,7 +91,7 @@ public class Converter : MonoBehaviour
 		}
 		else
 		{
-			ConvertWindow.SetActive(true);  
+			ConvertWindow.SetActive(true);
 			ConvertWindow.GetComponentInChildren<Text>().text = "Не удалось найти папку с картами. Похоже, Team Run не установлен или произошла какая-то ошибка.";// 
 		}
 	}
@@ -101,7 +101,7 @@ public class Converter : MonoBehaviour
 	{
 		try
 		{
-			old_data = File.ReadAllLines(path);		//
+			old_data = File.ReadAllLines(path);     //
 			new_data = new string[old_data.Length]; //
 			if (!Directory.Exists("/storage/emulated/0/Team Run Tools/Map Converter Backups")) Directory.CreateDirectory("/storage/emulated/0/Team Run Tools/Map Converter Backups");
 			File.Copy(path, "/storage/emulated/0/Team Run Tools/Map Converter Backups/" + Path.GetFileName(path), true);
@@ -113,7 +113,7 @@ public class Converter : MonoBehaviour
 				else
 				{
 					int cn = 0;
-					string[] sa = ToArray(str);//преобразуем строку в массив
+					string[] sa = Utility.ToListExcludeSemicolon(str).ToArray();//преобразуем строку в массив
 					List<string> ns = new List<string>();//листыы
 					List<string> ms = new List<string>();//ыыыы
 					List<string> ps = new List<string>();//ыыы
@@ -211,7 +211,7 @@ public class Converter : MonoBehaviour
 					}
 
 
-					new_data[cnt] = ToString(ns) + ToString(ps) + ToString(ms) + ToString(rs) + ToString(cs);//складываем всё вместе
+					new_data[cnt] = Utility.ToStringIncludeSemicolon(ns) + Utility.ToStringIncludeSemicolon(ps) + Utility.ToStringIncludeSemicolon(ms) + Utility.ToStringIncludeSemicolon(rs) + Utility.ToStringIncludeSemicolon(cs);//складываем всё вместе
 				}
 				cnt++;//крутим счётчик
 			}
@@ -225,31 +225,5 @@ public class Converter : MonoBehaviour
 		{
 			debug.text = exc.ToString();//дебаг
 		}
-	}
-
-	public string[] ToArray(string s)
-	{
-		List<string> l = new List<string>();
-		string ss = "";
-		foreach(char c in s)
-		{
-			if (c != ';') ss += c;//делим строку по ; на ячейки в массиве
-			else
-			{
-				l.Add(ss);//добавляем в список переменную
-				ss = "";
-			}
-		}
-		return l.ToArray();
-	}
-
-	public string ToString(List<string> l)
-	{
-		string s = "";
-		foreach(string st in l)
-		{
-			s += st + ';';//складываем все ячейки в массиве и ставим между ними ;
-		}
-		return s;
 	}
 }

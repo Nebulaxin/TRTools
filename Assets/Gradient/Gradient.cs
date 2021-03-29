@@ -105,20 +105,6 @@ public class Gradient : MonoBehaviour
 
 	public string ColorString(Color col, string s)
 	{
-		Debug.Log($"{(int)(col.r * 255)} {(int)(col.g * 255)} {(int)(col.b * 255)}");
-		Debug.Log(((int)(col.r * 255)).ToString("x") + ((int)(col.g * 255)).ToString("x") + ((int)(col.b * 255)).ToString("x"));
-		int[] color = new int[3];
-		color[0] = (int)(col.r * 255);
-		color[1] = (int)(col.g * 255);
-		color[2] = (int)(col.b * 255);
-		string[] clr = new string[3];
-		for(int i = 0; i < 3; i++)
-		{
-			if (color[i] < 16) clr[i] = "0" + color[i].ToString("x");
-			else clr[i] = color[i].ToString("x");
-			Debug.Log(clr[i]);
-		}
-		string hex = clr[0] + clr[1] + clr[2];
-		return $"<color=#{hex}>{s}</color>";
+		return $"<color=#{Utility.ColorToHex(col)}>{s}</color>";
 	}
 }
