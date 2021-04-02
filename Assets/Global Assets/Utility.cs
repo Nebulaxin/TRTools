@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections.Generic;
-using System;
 using System.IO;
-using System.Text;
 using System.IO.Compression;
+using System.Text;
+using UnityEngine;
+
 
 public class Utility
 {
@@ -44,38 +45,17 @@ public class Utility
 		return Encoding.UTF8.GetString(decompressedBytes);
 	}
 
-	public static string ColorToHex(Color col)
+
+	public static string ColorToHex(Color col, bool isAlpha = false)
 	{
-		int[] color = new int[4];
-		color[0] = (int)(col.r * 255);
-		color[1] = (int)(col.g * 255);
-		color[2] = (int)(col.b * 255);
-		color[3] = (int)(col.a * 255);
-		string[] clr = new string[4];
-		for (int i = 0; i < 4; i++)
-		{
-			if (color[i] < 16) clr[i] = "0" + color[i].ToString("x");
-			else clr[i] = color[i].ToString("x");
-			Debug.Log(clr[i]);
-		}
-		return clr[0] + clr[1] + clr[2] + clr[3];
+		if (col.a == 1 | !isAlpha) return ColorUtility.ToHtmlStringRGB(col);
+		else return ColorUtility.ToHtmlStringRGBA(col);
 	}
 	public static Color HexToColor(string s)
 	{
-		Color col = new Color();
-		if(s.Length == 6)
-		{
-			string[] cols = new string[3];
-
-		}
-		if(s.Length == 8)
-		{
-
-		}
-		return col;
+		ColorUtility.TryParseHtmlString("#" + s, out Color c);
+		return c;
 	}
-
-
 
 
 	public static List<string> ToListExcludeSemicolon(string s)
@@ -93,7 +73,6 @@ public class Utility
 		}
 		return l;
 	}
-
 	public static List<string> ArraryToList(string[] s)
 	{
 		List<string> l = new List<string>();
